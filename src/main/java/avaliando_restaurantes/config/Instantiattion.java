@@ -41,6 +41,7 @@ public class Instantiattion implements CommandLineRunner{
 		Restaurante r2=new Restaurante(null, "Gusteau's");
 		Restaurante r3=new Restaurante(null, "Pizza Planet");
 		
+		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
 		
 		Avaliacao av1=new Avaliacao(null, 8, "Atrasou,mas estava bom!", new UserDTO(maria),r2);
 		Avaliacao av2=new Avaliacao(null, 10, "Tudo excelente!", new UserDTO(bob),r3);
@@ -50,8 +51,13 @@ public class Instantiattion implements CommandLineRunner{
 		
 		avaliacaoRepository.saveAll(Arrays.asList(av1,av2,av3,av4));
 		
-		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
+		restauranteRepository.deleteAll();
 		
+		r1=new Restaurante(null, "Siri Cascudo", Arrays.asList(av3));
+		r2=new Restaurante(null, "Gusteau's", Arrays.asList(av1,av4));
+		r3=new Restaurante(null, "Pizza Planet", Arrays.asList(av2));
+		
+		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
 	
 	}
 

@@ -18,10 +18,18 @@ public class Restaurante implements Serializable{
 	public Restaurante() {
 		super();
 	}
+	
 	public Restaurante(String id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public Restaurante(String id, String nome,List<Avaliacao> avaliacoes) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.avaliacoes=avaliacoes;
 	}
 	public String getId() {
 		return id;
