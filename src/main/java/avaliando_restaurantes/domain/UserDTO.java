@@ -3,25 +3,16 @@ package avaliando_restaurantes.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-
-@Document(collection ="user")
-public class User implements Serializable{
+public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Id
 	private String id;
 	private String nome;
-	private String senha;
-	public User() {
+	public UserDTO() {
 		super();
 	}
-	public User(String id, String nome, String senha) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.senha = senha;
+	public UserDTO(User user) {
+		this.id=user.getId();
+		this.nome=user.getNome();
 	}
 	public String getId() {
 		return id;
@@ -35,12 +26,6 @@ public class User implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -53,8 +38,9 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserDTO other = (UserDTO) obj;
 		return Objects.equals(id, other.id);
 	}
+	
 	
 }
