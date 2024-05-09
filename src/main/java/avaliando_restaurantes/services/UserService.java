@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import avaliando_restaurantes.domain.User;
-import avaliando_restaurantes.domain.UserDTO;
 import avaliando_restaurantes.repository.UserRepository;
 import avaliando_restaurantes.services.exceptions.ObjectNotFoundException;
 
@@ -36,8 +35,8 @@ public class UserService {
 		updateData(user, newUser);
 		return repository.save(user);
 	}
-	public User fromDto(UserDTO userDto,String senha) {
-		return new User(userDto.getId(),userDto.getNome(),senha);
+	public User fromDto(User user) {
+		return new User(user.getId(),user.getNome(),user.getSenha());
 	}
 	public void updateData(User user,User newUser) {
 		user.setNome(newUser.getNome());

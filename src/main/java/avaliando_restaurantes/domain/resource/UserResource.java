@@ -2,7 +2,6 @@ package avaliando_restaurantes.domain.resource;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +40,7 @@ public class UserResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Map<String, Object> requestBody) {
-        String nome = (String) requestBody.get("nome");
-        String senha = (String) requestBody.get("senha");
-        User user=new User(null, nome, senha);
+	public ResponseEntity<Void> insert(@RequestBody User user) {
 		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -57,8 +53,8 @@ public class UserResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserDTO userDto ,@PathVariable String senha,@PathVariable String id){
-		User user=service.fromDto(userDto, senha);
+	public ResponseEntity<Void> update(@RequestBody User user ,@PathVariable String id){
+		user=service.fromDto(user);
 		user=service.update(user);
 		return ResponseEntity.noContent().build();
 		
