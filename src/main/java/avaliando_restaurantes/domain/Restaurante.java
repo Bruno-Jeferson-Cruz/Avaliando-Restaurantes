@@ -9,50 +9,73 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Restaurante implements Serializable{
+public class Restaurante implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private String nome;
-	private List<Avaliacao> avaliacoes=new ArrayList<>();
+	private List<AvaliacaoDTO> avaliacoes = new ArrayList<>();
+	private Double media;
+
 	public Restaurante() {
 		super();
 	}
-	
+
 	public Restaurante(String id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public Restaurante(String id, String nome,List<Avaliacao> avaliacoes) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.avaliacoes=avaliacoes;
-	}
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Avaliacao> getAvaliacoes() {
+
+	public List<AvaliacaoDTO> getAvaliacoes() {
 		return avaliacoes;
 	}
-	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+
+	public void setAvaliacoes(List<AvaliacaoDTO> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
+
+	public Double getMedia() {
+		return media;
+	}
+
+	public void setMedia(Double media) {
+		this.media = media;
+	}
+
+	public Double media() {
+		if (avaliacoes.isEmpty()) {
+			return 0.0;
+		}
+		double soma = 0.0;
+		for (AvaliacaoDTO avaliacao : avaliacoes) {
+			soma += avaliacao.getNota();
+		}
+
+		return soma / avaliacoes.size();
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -64,4 +87,5 @@ public class Restaurante implements Serializable{
 		Restaurante other = (Restaurante) obj;
 		return Objects.equals(id, other.id);
 	}
+
 }

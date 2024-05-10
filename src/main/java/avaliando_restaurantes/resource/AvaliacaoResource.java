@@ -1,7 +1,8 @@
-package avaliando_restaurantes.domain.resource;
+package avaliando_restaurantes.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import avaliando_restaurantes.domain.Avaliacao;
+import avaliando_restaurantes.domain.AvaliacaoDTO;
 import avaliando_restaurantes.services.AvaliacaoService;
 
 @RestController
@@ -24,15 +26,16 @@ public class AvaliacaoResource {
 	private AvaliacaoService service;
 
 	@GetMapping
-	public ResponseEntity<List<Avaliacao>> findAll() {
+	public ResponseEntity<List<AvaliacaoDTO>> findAll() {
 		List<Avaliacao> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<AvaliacaoDTO> listDto= list.stream().map(x -> new AvaliacaoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Avaliacao> findById(@PathVariable String id) {
+	public ResponseEntity<AvaliacaoDTO> findById(@PathVariable String id) {
 		Avaliacao avaliacao = service.findById(id);
-		return ResponseEntity.ok().body(avaliacao);
+		return ResponseEntity.ok().body(new AvaliacaoDTO(avaliacao));
 	}
 
 	@PostMapping

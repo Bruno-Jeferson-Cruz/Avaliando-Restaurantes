@@ -1,4 +1,4 @@
-package avaliando_restaurantes.domain.resource;
+package avaliando_restaurantes.resource;
 
 import java.net.URI;
 import java.util.List;

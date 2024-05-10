@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import avaliando_restaurantes.domain.Avaliacao;
+import avaliando_restaurantes.domain.AvaliacaoDTO;
 import avaliando_restaurantes.domain.Restaurante;
 import avaliando_restaurantes.domain.User;
 import avaliando_restaurantes.domain.UserDTO;
@@ -27,6 +28,7 @@ public class Instantiattion implements CommandLineRunner{
 
 	@Override
 	public void run(String... arg0) throws Exception {
+		
 		userRepository.deleteAll();
 		avaliacaoRepository.deleteAll();
 		restauranteRepository.deleteAll();
@@ -41,21 +43,28 @@ public class Instantiattion implements CommandLineRunner{
 		Restaurante r2=new Restaurante(null, "Gusteau's");
 		Restaurante r3=new Restaurante(null, "Pizza Planet");
 		
-		Avaliacao av1=new Avaliacao(null, 8, "Atrasou,mas estava bom!", new UserDTO(maria));
-		Avaliacao av2=new Avaliacao(null, 10, "Tudo excelente!", new UserDTO(bob));
-		Avaliacao av3=new Avaliacao(null, 4, "Atrasou e a comida estava fria!", new UserDTO(alex));
-		Avaliacao av4=new Avaliacao(null, 8, "A comida estava boa,mas veio sem batata!", new UserDTO(maria));
+		Avaliacao av1=new Avaliacao(null, 4.0, "Atrasou,mas estava bom!", new UserDTO(maria));
+		Avaliacao av2=new Avaliacao(null, 8.0, "Tudo excelente!", new UserDTO(bob));
+		Avaliacao av3=new Avaliacao(null, 2.0, "Atrasou e a comida estava fria!", new UserDTO(alex));
+		Avaliacao av4=new Avaliacao(null, 4.5, "A comida estava boa,mas veio sem batata!", new UserDTO(maria));
+		
+		av1.setRestaurante(r2);
+		av2.setRestaurante(r3);
+		av3.setRestaurante(r1);
+		av4.setRestaurante(r2);
+		
 		
 		avaliacaoRepository.saveAll(Arrays.asList(av1,av2,av3,av4));
 		
-		r1.getAvaliacoes().add(av3);
-	    r2.getAvaliacoes().addAll(Arrays.asList(av1,av4));
-	    r3.getAvaliacoes().add(av2);
+		r1.getAvaliacoes().add(new AvaliacaoDTO(av3));
+	    r2.getAvaliacoes().addAll(Arrays.asList(new AvaliacaoDTO(av1),new AvaliacaoDTO(av4)));
+	    r3.getAvaliacoes().add(new AvaliacaoDTO(av2));
 		
-		
-		
+	    r1.setMedia(r1.media());
+	    r2.setMedia(r2.media());
+	    r3.setMedia(r3.media());
+	    
 		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
-	
 	}
 
 }

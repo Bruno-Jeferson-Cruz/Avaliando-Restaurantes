@@ -3,29 +3,20 @@ package avaliando_restaurantes.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
-public class Avaliacao implements Serializable{
+public class AvaliacaoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Id
 	private String id;
 	private Double nota;
 	private String desc;
-	private UserDTO autor;
-	private Restaurante restaurante;
 	
-	public Avaliacao() {
+	public AvaliacaoDTO() {
 		super();
 	}
-	public Avaliacao(String id, Double nota, String desc, UserDTO autor) {
+	public AvaliacaoDTO(Avaliacao avaliacao) {
 		super();
-		this.id = id;
-		this.nota = nota;
-		this.desc = desc;
-		this.autor = autor;
-
+		this.id = avaliacao.getId();
+		this.nota = avaliacao.getNota();
+		this.desc = avaliacao.getDesc();
 	}
 	public String getId() {
 		return id;
@@ -45,19 +36,7 @@ public class Avaliacao implements Serializable{
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public UserDTO getAutor() {
-		return autor;
-	}
-	public void setAutor(UserDTO autor) {
-		this.autor = autor;
-	}
 	
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -70,7 +49,7 @@ public class Avaliacao implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Avaliacao other = (Avaliacao) obj;
+		AvaliacaoDTO other = (AvaliacaoDTO) obj;
 		return Objects.equals(id, other.id);
 	}
 }
