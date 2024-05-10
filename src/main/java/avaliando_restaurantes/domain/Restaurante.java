@@ -14,8 +14,8 @@ public class Restaurante implements Serializable {
 	@Id
 	private String id;
 	private String nome;
-	private List<AvaliacaoDTO> avaliacoes = new ArrayList<>();
 	private Double media;
+	private List<AvaliacaoDTO> avaliacoes = new ArrayList<>();
 
 	public Restaurante() {
 		super();
