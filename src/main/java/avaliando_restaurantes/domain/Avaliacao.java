@@ -14,18 +14,16 @@ public class Avaliacao implements Serializable{
 	private Integer nota;
 	private String desc;
 	private UserDTO autor;
-	private Restaurante restaurante;
 	
 	public Avaliacao() {
 		super();
 	}
-	public Avaliacao(String id, Integer nota, String desc, UserDTO autor,Restaurante restaurante) {
+	public Avaliacao(String id, Integer nota, String desc, UserDTO autor) {
 		super();
 		this.id = id;
 		this.nota = nota;
 		this.desc = desc;
 		this.autor = autor;
-		this.restaurante=restaurante;
 	}
 	public String getId() {
 		return id;
@@ -52,12 +50,6 @@ public class Avaliacao implements Serializable{
 		this.autor = autor;
 	}
 	
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

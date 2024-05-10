@@ -41,21 +41,18 @@ public class Instantiattion implements CommandLineRunner{
 		Restaurante r2=new Restaurante(null, "Gusteau's");
 		Restaurante r3=new Restaurante(null, "Pizza Planet");
 		
-		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
-		
-		Avaliacao av1=new Avaliacao(null, 8, "Atrasou,mas estava bom!", new UserDTO(maria),r2);
-		Avaliacao av2=new Avaliacao(null, 10, "Tudo excelente!", new UserDTO(bob),r3);
-		Avaliacao av3=new Avaliacao(null, 4, "Atrasou e a comida estava fria!", new UserDTO(alex),r1);
-		Avaliacao av4=new Avaliacao(null, 8, "A comida estava boa,mas veio sem batata!", new UserDTO(maria),r2);
-		
+		Avaliacao av1=new Avaliacao(null, 8, "Atrasou,mas estava bom!", new UserDTO(maria));
+		Avaliacao av2=new Avaliacao(null, 10, "Tudo excelente!", new UserDTO(bob));
+		Avaliacao av3=new Avaliacao(null, 4, "Atrasou e a comida estava fria!", new UserDTO(alex));
+		Avaliacao av4=new Avaliacao(null, 8, "A comida estava boa,mas veio sem batata!", new UserDTO(maria));
 		
 		avaliacaoRepository.saveAll(Arrays.asList(av1,av2,av3,av4));
 		
-		restauranteRepository.deleteAll();
+		r1.getAvaliacoes().add(av3);
+	    r2.getAvaliacoes().addAll(Arrays.asList(av1,av4));
+	    r3.getAvaliacoes().add(av2);
 		
-		r1=new Restaurante(null, "Siri Cascudo", Arrays.asList(av3));
-		r2=new Restaurante(null, "Gusteau's", Arrays.asList(av1,av4));
-		r3=new Restaurante(null, "Pizza Planet", Arrays.asList(av2));
+		
 		
 		restauranteRepository.saveAll(Arrays.asList(r1,r2,r3));
 	
