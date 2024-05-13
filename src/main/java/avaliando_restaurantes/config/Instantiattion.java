@@ -17,11 +17,11 @@ import avaliando_restaurantes.repository.UserRepository;
 
 @Configuration
 public class Instantiattion implements CommandLineRunner{
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired 
 	private AvaliacaoRepository avaliacaoRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired 
 	private RestauranteRepository restauranteRepository;
